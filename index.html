@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Lung Scan (LDCT) Informational Survey</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5;margin:0;background:#f7f7fb}
+    main{max-width:860px;margin:0 auto;padding:24px}
+    h1{font-size:1.6rem;margin:.2rem 0 1rem}
+    .card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+    fieldset{border:0;margin:0;padding:0}
+    legend{font-weight:600;margin-bottom:8px}
+    .row{display:flex;flex-wrap:wrap;gap:12px}
+    .col{flex:1 1 320px}
+    label{display:block;margin:.5rem 0;font-weight:500}
+    .help{color:#4b5563;font-size:.95rem}
+    select, input[type="text"], input[type="number"]{
+      width:100%;padding:.6rem;border:1px solid #cbd5e1;border-radius:8px;background:#fff
+    }
+    .radio-group{display:grid;gap:.35rem}
+    .radio-inline{display:flex;gap:10px;align-items:center;margin:.15rem 0}
+    .muted{color:#6b7280}
+    .hidden{display:none}
+    .btn{background:#2563eb;color:#fff;border:0;border-radius:10px;padding:.8rem 1rem;font-weight:600;cursor:pointer}
+    .pill{display:inline-block;padding:.25rem .55rem;border-radius:999px;font-size:.9rem;border:1px solid #d1d5db;background:#f9fafb;margin-right:.35rem}
+    .ok{color:#065f46;background:#ecfdf5;border-color:#a7f3d0}
+    .no{color:#7f1d1d;background:#fef2f2;border-color:#fecaca}
+    .result-block{border-top:1px dashed #e5e7eb;margin-top:12px;padding-top:12px}
+  </style>
+</head>
+<body>
+<main>
+  <section class="card">
+    <h1>Lung Scan (LDCT) Informational Survey</h1>
+    <p class="help">
+      In a few questions, we'll tell you if you may be eligible for a lung scan called
+      <strong>low-dose computed tomography (LDCT)</strong> and share next steps.
+      This is <strong>for information only</strong> and is <strong>not medical advice</strong>.
+    </p>
+  </section>
+
+  <!-- ✅ Updated form tag: Formspree endpoint + POST -->
+  <form id="ldct-form"
+        action="https://formspree.io/f/YOUR_FORM_ID"
+        method  novalidate>
+
+    <!-- Age -->
+    <section class="card">
+      <fieldset>
+        <legend>How old are you?</legend>
+        <div class="radio-group">
+          <label class="radio-inline"><input type="radio" name="ageBracket" value="18-49" required> 18–49</label>
+          <label class="radio-inline"><input type="radio" name="ageBracket" value="50-80"> 50–80</label>
+          <label class="radio-inline"><input type="radio" name="ageBracket" value="80+"> 80+</label>
+        </div>
+      </fieldset>
+    </section>
+
+    <!-- Gender + Ethnicity -->
+    <section class="card">
+      <div class="row">
+        <div class="col">
+          <fieldset>
+            <legend>What is your gender?</legend>
+            <select name="gender" required>
+              <option value="" selected disabled>— Please choose —</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Non-binary</option>
+              <option>Prefer to self describe</option>
+            </select>
+            <input class="hidden" type="text" name="genderSelf" placeholder="Enter your gender" />
+          </fieldset>
+        </div>
+
+        <div class="col">
+          <fieldset>
+            <legend>How would you describe your ethnicity/race?</legend>
+            <select name="ethnicity" required>
+              <option value="" selected disabled>— Please choose —</option>
+              <option>Hispanic or Latino</option>
+              <option>White / Caucasian</option>
+              <option>Black or African American</option>
+              <option>Asian</option>
+              <option>American Indian or Alaska Native</option>
+              <option>Native Hawaiian</option>
+              <option>Other Pacific Islander</option>
+              <option>Prefer to self describe</option>
+            </select>
+            <input class="hidden" type="text" name="ethnicitySelf" placeholder="Enter how you self describe" />
+          </fieldset>
+        </div>
+      </div>
+    </section>
+
+    <!-- Smoking history -->
+    <section class="card">
+      <fieldset>
+        <legend>About smoking</legend>
+        <label>Have you ever smoked cigarettes?
+          <select name="everSmoked" required>
+            <option value="" selected disabled>— Please choose —</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </label>
+
+        <div id="smoking-followups" class="hidden">
+          <label>When did you last smoke?
+            <select name="lastSmoke" required>
+              <option value="" selected disabled>— Please choose —</option>
+              <option value="past15">Within the last 15 years</option>
+              <option value="more15">More than 15 years ago</option>
+            </select>
+          </label>
+
+          <div class="row">
+            <div class="col">
+              <label>Total years you smoked
+                <input type="number" name="yearsSmoked" min="0" step="1" placeholder="e.g., 20" required />
+              </label>
+            </div>
+            <div class="col">
+              <label>Average packs per day
+                <input type="number" name="packsPerDay" min="0" step="0.1" placeholder="e.g., 1.0" required />
+              </label>
+              <div class="help">Pack‑years = years smoked × packs per day.</div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </section>
+
+    <!-- Family history -->
+    <section class="card">
+      <fieldset>
+        <legend>Family history</legend>
+        <label>Has anyone in your family had lung cancer?
+          <select name="familyHistory" required>
+            <option value="" selected disabled>— Please choose —</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Unsure">Not sure</option>
+          </select>
+        </label>
+      </fieldset>
+    </section>
+
+    <!-- Submit -->
+    <section class="card">
+      <button type="submit" class="btn">See Your Summary</button>
+      <p class="help muted" style="margin-top:.5rem">
+        This tool does not give medical advice. Please talk with a healthcare provider about screening.
+      </p>
+    </section>
+
+    <!-- (Optional) redirect after successful submission -->
+    <!-- <input type="hidden" name="_redirect" value="/thanks.html"> -->
+
+    <!-- Honeypot for spam protection -->
+    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+  </form>
+
+  <!-- Results -->
+  <section id="results" class="card hidden">
+    <h2>Your Screening Summary (ACS Guideline)</h2>
+    <div id="packyears"></div>
+    <div class="result-block" id="acs-result"></div>
+    <div class="result-block">
+      <p><strong>Next steps:</strong> If you may be eligible, talk with a healthcare provider about LDCT screening. They can explain benefits, risks, and help with quitting smoking if needed.</p>
+    </div>
+  </section>
+</main>
+
+<script>
+  const form = document.getElementById('ldct-form');
+  const smokingFollowups = document.getElementById('smoking-followups');
+  const results = document.getElementById('results');
+  const packyearsDiv = document.getElementById('packyears');
+  const acsResult = document.getElementById('acs-result');
+
+  // ✅ Formspree endpoint used by the fetch() below
+  const formspreeEndpoint = 'https://formspree.io/f/YOUR_FORM_ID';
+
+  form.gender.addEventListener('change', () => {
+    form.genderSelf.classList.toggle('hidden', form.gender.value !== 'Prefer to self describe');
+  });
+  form.ethnicity.addEventListener('change', () => {
+    form.ethnicitySelf.classList.toggle('hidden', form.ethnicity.value !== 'Prefer to self describe');
+  });
+
+  form.everSmoked.addEventListener('change', () => {
+    smokingFollowups.classList.toggle('hidden', form.everSmoked.value !== 'Yes');
+  });
+
+  function computePackYears(years, packsPerDay) {
+    const y = Number(years), p = Number(packsPerDay);
+    if (!isFinite(y) || y < 0 || !isFinite(p) || p < 0) return null;
+    return +(y * p).toFixed(1);
+  }
+
+  function evaluateACS(ageBracket, everSmoked, packYears) {
+    const meetsAge = ageBracket === '50-80';
+    const meetsPY = (packYears ?? 0) >= 20;
+    const meetsSmokingStatus = everSmoked === 'Yes';
+    const eligible = meetsAge && meetsPY && meetsSmokingStatus;
+    const reasons = [];
+    if (!meetsAge) reasons.push('Age not 50–80');
+    if (!meetsPY) reasons.push('Pack‑years less than 20');
+    if (!meetsSmokingStatus) reasons.push('No past cigarette smoking');
+    return { eligible, reasons };
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const ageBracket = form.ageBracket.value;
+    const everSmoked = form.everSmoked.value;
+    const packYears = (everSmoked === 'Yes')
+      ? computePackYears(form.yearsSmoked.value, form.packsPerDay.value)
+      : 0;
+
+    if (!ageBracket || !form.gender.value || !form.ethnicity.value) {
+      alert('Please answer all required questions.');
+      return;
+    }
+    if (everSmoked === 'Yes' && packYears === null) {
+      alert('Please complete the smoking questions.');
+      return;
+    }
+
+    // Show the on-page results (unchanged)
+    results.classList.remove('hidden');
+    packyearsDiv.innerHTML = `<p>Estimated pack‑years: <span class="pill">${packYears}</span></p>`;
+
+    const acs = evaluateACS(ageBracket, everSmoked, packYears);
+    acsResult.innerHTML = acs.eligible
+      ? `<p class="pill ok">You may be eligible for yearly LDCT screening under ACS guidelines.</p>`
+      : `<p class="pill no">You likely do not meet ACS screening rules.</p><p class="help">Why: ${acs.reasons.join('; ')}</p>`;
+
+    results.scrollIntoView({ behavior: 'smooth' });
+
+    // ALSO send answers + computed results to Formspree via AJAX
+    try {
+      const fd = new FormData(form);
+
+      // Include computed values with the submission
+      fd.append('computed_packYears', String(packYears));
+      fd.append('acs_eligible', acs.eligible ? 'Yes' : 'No');
+      fd.append('acs_reasons', acs.reasons.join('; '));
+      fd.append('page_url', window.location.href);
+      fd.append('submitted_at', new Date().toISOString());
+
+      const resp = await fetch(formspreeEndpoint, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: fd
+      });
+
+      if (resp.ok) {
+        console.log('Formspree submission succeeded.');
+      } else {
+        console.warn('Formspree submission error:', resp.status);
+      }
+    } catch (err) {
+      console.error('Formspree submission failed:', err);
+      // Fallback: uncomment to let the browser do a standard POST
+      // form.submit();
+    }
+  });
+</script>
+</body>
+</html>
